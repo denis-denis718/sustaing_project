@@ -948,11 +948,10 @@ body.menu-open { overflow: hidden; }
   .how__connector { display: none; }
 }
 
-/* Hero stack: 880px */
-@media (max-width: 880px) {
-  .hero__inner { grid-template-columns: 1fr; gap: 32px; }
-  /* SVG content sits ~6% right of the viewBox center; nudge left so it visually centers when the column goes full-width */
-  .hero__art svg { max-width: 400px; transform: translateX(-6%); }
+/* Tablet 2-col hero: 641-880px — keep illustration on the right, tighten the gap and shrink the art */
+@media (min-width: 641px) and (max-width: 880px) {
+  .hero__inner { gap: 32px; }
+  .hero__art svg { max-width: 360px; }
 }
 
 /* Mobile + hamburger panel: 860px */
@@ -1080,7 +1079,10 @@ body.menu-open { overflow: hidden; }
    Mobile-only refinements: 640px
    ============================================================ */
 @media (max-width: 640px) {
-  /* --- Hero: center copy as a column --- */
+  /* --- Hero: stack to a single column and center the copy --- */
+  .hero__inner { grid-template-columns: 1fr; gap: 32px; }
+  /* SVG content sits ~6% right of the viewBox center; nudge left so it visually centers when the column goes full-width */
+  .hero__art svg { max-width: 400px; transform: translateX(-6%); }
   .hero__copy {
     align-items: center;
     text-align: center;
