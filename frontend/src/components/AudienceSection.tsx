@@ -21,6 +21,8 @@ const items: AudienceItem[] = [
   { icon: <UsersIcon />, label: 'Small teams' },
 ]
 
+const MARQUEE_REPEATS = 3
+
 export function AudienceSection() {
   return (
     <section className="band band--cream-deep audience" id="audience">
@@ -29,14 +31,25 @@ export function AudienceSection() {
           <EyebrowLabel>WHO IT&rsquo;S FOR</EyebrowLabel>
           <SectionHeading>Built for modern professionals</SectionHeading>
         </div>
-        <ul className="audience__grid">
-          {items.map((item) => (
-            <li key={item.label} className="audience__item">
-              <span className="audience__icon">{item.icon}</span>
-              <p className="audience__label">{item.label}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="audience__viewport">
+          <ul className="audience__grid">
+            {Array.from({ length: MARQUEE_REPEATS }).flatMap((_, repeat) =>
+              items.map((item) => {
+                const isClone = repeat > 0
+                return (
+                  <li
+                    key={`${item.label}-${repeat}`}
+                    className={`audience__item${isClone ? ' audience__item--clone' : ''}`}
+                    aria-hidden={isClone || undefined}
+                  >
+                    <span className="audience__icon">{item.icon}</span>
+                    <p className="audience__label">{item.label}</p>
+                  </li>
+                )
+              }),
+            )}
+          </ul>
+        </div>
       </div>
     </section>
   )

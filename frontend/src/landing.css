@@ -866,7 +866,16 @@ body.menu-open { overflow: hidden; }
   }
 }
 
-/* Tablet: 960px — sustainability stacks */
+/* Audience marquee duplicates: hidden by default on desktop where the static 5-col grid is enough */
+.audience__item--clone { display: none; }
+
+/* Item width 124 + gap 14 = 138; one full set of 5 items shifts by 5 * 138 = 690px */
+@keyframes audience-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-690px, 0, 0); }
+}
+
+/* Tablet: 960px — sustainability stacks; audience becomes a continuous marquee */
 @media (max-width: 960px) {
   .sustainability__inner { grid-template-columns: 1fr; gap: 40px; }
 
@@ -879,6 +888,50 @@ body.menu-open { overflow: hidden; }
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* --- Audience: right→left infinite marquee --- */
+  .audience__viewport {
+    overflow: hidden;
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+            mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  }
+  .audience__grid {
+    display: flex;
+    grid-template-columns: none;
+    gap: 14px;
+    width: max-content;
+    margin: 0;
+    padding: 6px 0 10px;
+    animation: audience-marquee 26s linear infinite;
+    will-change: transform;
+  }
+  .audience__item { flex: 0 0 124px; width: 124px; }
+  .audience__item--clone { display: flex; }
+}
+
+/* Reduced motion: drop the animation and fall back to the centered 2-col layout */
+@media (max-width: 960px) and (prefers-reduced-motion: reduce) {
+  .audience__viewport {
+    overflow: visible;
+    margin: 0;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .audience__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: auto;
+    gap: 24px;
+    padding: 0;
+    animation: none;
+  }
+  .audience__item { flex: initial; width: auto; }
+  .audience__item--clone { display: none; }
+  .audience__grid > .audience__item:not(.audience__item--clone):last-of-type {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1056,25 +1109,6 @@ body.menu-open { overflow: hidden; }
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  /* --- Audience: horizontal scroll list on phones --- */
-  .audience__grid {
-    display: flex;
-    grid-template-columns: none;
-    gap: 14px;
-    overflow-x: auto;
-    padding: 4px 4px 12px;
-    margin: 0 -4px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .audience__grid::-webkit-scrollbar { display: none; }
-  .audience__item {
-    flex: 0 0 auto;
-    width: 124px;
-    scroll-snap-align: start;
   }
 
   /* --- Footer: minimal-premium redesign --- */
