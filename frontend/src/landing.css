@@ -1023,6 +1023,12 @@ body.menu-open { overflow: hidden; }
   .footer__nav ul { flex-wrap: wrap; justify-content: center; gap: 16px 22px; }
 }
 
+/* Problem: 2-col range (≈504–770px viewport, e.g. iPad portrait 768) — last card spans both columns so the 3rd item sits centered on the bottom row instead of orphaning to the left */
+@media (min-width: 504px) and (max-width: 770px) {
+  .problem__grid { grid-template-columns: 1fr 1fr; }
+  .problem__card:nth-child(3) { grid-column: 1 / -1; }
+}
+
 /* Solution stack: 760px */
 @media (max-width: 760px) {
   .solution__inner { grid-template-columns: 1fr; gap: 32px; }
