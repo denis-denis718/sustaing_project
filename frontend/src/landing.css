@@ -887,7 +887,8 @@ body.menu-open { overflow: hidden; }
 /* Hero stack: 880px */
 @media (max-width: 880px) {
   .hero__inner { grid-template-columns: 1fr; gap: 32px; }
-  .hero__art svg { max-width: 400px; }
+  /* SVG content sits ~6% right of the viewBox center; nudge left so it visually centers when the column goes full-width */
+  .hero__art svg { max-width: 400px; transform: translateX(-6%); }
 }
 
 /* Mobile + hamburger panel: 860px */
