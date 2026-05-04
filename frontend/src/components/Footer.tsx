@@ -1,5 +1,5 @@
 import logo from '../assets/logo.png'
-import { LinkedInIcon, InstagramIcon, MailIcon } from './icons'
+import { LinkedInIcon, InstagramIcon, MailIcon, LeafIcon } from './icons'
 
 const navItems = [
   { label: 'How it works', href: '#how-it-works' },
@@ -18,6 +18,9 @@ const socials = [
 export function Footer() {
   return (
     <footer className="footer">
+      <span className="footer__leaf" aria-hidden>
+        <LeafIcon />
+      </span>
       <div className="container footer__inner">
         <a href="#top" className="footer__brand" aria-label="SUSTAIN home">
           <img
@@ -28,6 +31,10 @@ export function Footer() {
             height="64"
           />
         </a>
+        <div className="footer__brandline">
+          <span className="footer__wordmark">SUSTAIN</span>
+          <p className="footer__tagline">Workspaces for people and planet</p>
+        </div>
         <nav className="footer__nav" aria-label="Footer">
           <ul>
             {navItems.map((item) => (
@@ -46,6 +53,14 @@ export function Footer() {
             </li>
           ))}
         </ul>
+        <div className="footer__legal">
+          <p className="footer__copy">&copy; 2026 SUSTAIN</p>
+          <ul className="footer__legal-links">
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#terms">Terms</a></li>
+            <li><a href="#cookies">Cookies</a></li>
+          </ul>
+        </div>
       </div>
     </footer>
   )
